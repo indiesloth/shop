@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 @Entity
-@Table(name = "")
-public class Item {
+@Table(name = "item")
+public class Item extends BaseEntity {
 
   @Id
   @Column(name = "item_id")
@@ -33,7 +33,4 @@ public class Item {
 
   @Enumerated(EnumType.STRING)
   private ItemSellStatus itemSellStatus;
-
-  private LocalDateTime createdAt;
-  private LocalDateTime updatedAt;
 }
