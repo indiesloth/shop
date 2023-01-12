@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class MemberService implements UserDetailsService {
+
   private final MemberRepository memberRepository;
 
   public Member saveMember(Member member) {
@@ -24,7 +25,7 @@ public class MemberService implements UserDetailsService {
 
   private void validateDuplicateMember(Member member) {
     Member findMember = memberRepository.findByEmail(member.getEmail());
-    if(findMember != null) {
+    if (findMember != null) {
       throw new IllegalStateException("이미 가입된 회원입니다.");
     }
   }
@@ -33,7 +34,7 @@ public class MemberService implements UserDetailsService {
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     Member member = memberRepository.findByEmail(email);
 
-    if(member == null) {
+    if (member == null) {
       throw new UsernameNotFoundException(email);
     }
 

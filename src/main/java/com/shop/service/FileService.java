@@ -1,20 +1,20 @@
 package com.shop.service;
 
-import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
-import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 public class FileService {
-  public String uploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception {
+
+  public String uploadFile(String uploadPath, String originalFileName, byte[] fileData)
+      throws Exception {
     UUID uuid = UUID.randomUUID();
     String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
-    String savedFileName = uuid.toString() + extension;
+    String savedFileName = uuid + extension;
     String fileUploadFullUrl = uploadPath + "/" + savedFileName;
     FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);
     fos.write(fileData);
@@ -25,7 +25,7 @@ public class FileService {
   public void deleteFile(String filePath) throws Exception {
     File deleteFile = new File(filePath);
 
-    if(deleteFile.exists()) {
+    if (deleteFile.exists()) {
       deleteFile.delete();
       log.info("파일을 삭제했습니다.");
     } else {

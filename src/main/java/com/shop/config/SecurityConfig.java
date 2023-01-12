@@ -23,15 +23,13 @@ public class SecurityConfig {
         .and()
         .logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout")) // 로그아웃 URL 설정
-        .logoutSuccessUrl("/") // 로그아웃 성공 시 이동할 URL
-    ;
+        .logoutSuccessUrl("/"); // 로그아웃 성공 시 이동할 URL
 
     http.authorizeRequests()
         .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
         .mvcMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
         .mvcMatchers("/admin/**").hasRole("ADMIN")
-        .anyRequest().authenticated()
-    ;
+        .anyRequest().authenticated();
 
     http.exceptionHandling()
         .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
