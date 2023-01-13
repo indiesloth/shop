@@ -1,6 +1,6 @@
 package com.shop.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.shop.constant.ItemSellStatus;
 import com.shop.dto.CartItemDto;

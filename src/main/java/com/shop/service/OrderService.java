@@ -76,10 +76,7 @@ public class OrderService {
         .orElseThrow(EntityExistsException::new);
     Member savedMember = order.getMember();
 
-    if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
-      return false;
-    }
-    return true;
+    return StringUtils.equals(curMember.getEmail(), savedMember.getEmail());
   }
 
   public void cancelOrder(Long orderId) {
@@ -88,5 +85,19 @@ public class OrderService {
     order.cancelOrder();
   }
 
+  public Long orders(List<OrderDto> orderDtoList, String email) {
+    Member member = memberRepository.findByEmail(email);
+    List<OrderItem> orderItemList = new ArrayList<>();
 
+    for (OrderDto orderDto : orderDtoList) {
+      Item item = itemRepository.findById(orderDto.getItemId())
+          .orElseThrow(EntityExistsException::new);
+      OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
+      orderItemList.add(orderItem);
+    }
+    Order order = Order.createOrder(member, orderItemList);
+    orderRepository.save(order);
+
+    return order.getId();
+  }
 }
